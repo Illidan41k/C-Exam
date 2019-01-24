@@ -1,0 +1,110 @@
+
+Библа
+
+using System;
+
+namespace ClassLibrary2
+{
+    public class Class1
+    {
+        public static double real11 { get; set; }
+        public static double real22 { get; set; }
+        public static double imag11 { get; set; }
+        public static double imag22 { get; set; }
+
+        public static void Enter()
+        {
+
+            string real1 = Console.ReadLine();
+            string real2 = Console.ReadLine();
+            string imag1 = Console.ReadLine();
+            string imag2 = Console.ReadLine();
+
+            try
+            {
+                real11 = Convert.ToDouble(real1);
+                real22 = Convert.ToDouble(real2);
+                imag11 = Convert.ToDouble(imag1);
+                imag22 = Convert.ToDouble(imag2);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.WriteLine("Ошибка");
+            }
+        }
+
+
+        public static void Sum()
+        {
+            double sumrez1;
+            double sumrez2;
+
+            sumrez1 = real11 + real22;
+            sumrez2 = imag11 + imag22;
+            Console.WriteLine($"{sumrez1}, { sumrez2}i");
+        }
+        public static void Razn()
+        {
+            double raznrez1;
+            double raznrez2;
+            raznrez1 = real11 - real22;
+            raznrez2 = imag11 - imag22;
+            Console.WriteLine($"{raznrez1}, { raznrez2}i");
+        }
+        public static void Umnozh()
+        {
+            double rez1;
+            double rez2;
+            rez1 = (real11 * real22 - imag11 * imag22);
+            rez2 = (real11 * imag22 + imag11 * real22);
+            Console.WriteLine($"{rez1}, { rez2}i");
+        }
+    }
+}
+
+
+Program.cs
+
+using ClassLibrary2;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp17
+{
+                public class Program
+                {
+                  public static void Main(string[] args)
+                  {             
+                    string i;
+
+                    Console.WriteLine("Choose:/n1 Enter /n2 Sum/n3 Razn/n4 Umnozh/n5 Exit");
+                    do
+                    {
+                    i = Console.ReadLine();
+                      switch (i)
+                      {
+                        case "1":
+                            
+                              Class1.Enter();                               
+                                break;                            
+                        case "2":                            
+                            Class1.Sum();                            
+                            break;
+                        case "3":
+                            Class1.Razn();
+                            break;
+                        case "4":
+                            Class1.Umnozh();
+                            break;
+                        default:
+                        break;
+                      }
+                    } while (i != "5");
+                  }
+                }
+}
+

@@ -1,0 +1,84 @@
+Библа
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+
+namespace Biblio
+{
+    public static class Bibi
+    {
+        public static List<string> spisok = new List<string>();
+        public static List <string> text = new List<string>();
+
+        public static void Dobovlenie (string str)
+        {
+            
+            spisok.AddRange(Directory.GetFiles(str, "*.txt"));
+        }
+
+        public static void Reading(int ind)
+        {
+            string str = spisok.ElementAt(ind);
+            using (StreamReader sr = new StreamReader(str, Encoding.Default))
+            {
+                text = File.ReadAllLines(str).ToList();
+            }
+        }
+    }
+}
+
+Main
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using Biblio;
+using System.IO;
+
+namespace BiblioEX_var8
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string path;
+            var dlg = new FolderBrowserDialog();
+            if (dlg.ShowDialog() != DialogResult.OK) return;
+            else path = dlg.SelectedPath;
+            Bibi.Dobovlenie(path);
+            foreach (string m in Bibi.spisok)
+            {               
+                comboBox1.Items.Add(Path.GetFileName(m));
+            }
+        }
+
+
+
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int ind = comboBox1.SelectedIndex;
+            Bibi.Reading(ind);
+            foreach (string m in Bibi.text)
+            {
+                textBox1.Text +="\r\n" + m;
+            }
+        }
+    }
+}
+

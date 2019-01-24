@@ -1,0 +1,95 @@
+Ñîçäàòü êîíñîëüíîå ïðèëîæåíèå ïîêàçûâàþùåå ðàáîòó ñ ÁÄ access íà îñíîâå OleDbConnection.
+
+using System;
+using System.Data;
+using System.Data.OleDb;
+namespace lessonbasaconsole
+{
+      /// <summary>
+      /// Summary description for Class1.
+      /// </summary>
+      class Class1
+      {
+            /// <summary>
+            /// The main entry point for the application.
+            /// </summary>
+            [STAThread]
+            static void Main(string[] args)
+            {
+                  //
+                  // TODO: Add code to start application here
+                  //
+ 
+            string connectingString =@"provider=Microsoft.Jet.OLEDB.4.0;data source= c:\disk_d\msdev\mydb.mdb";
+            OleDbConnection myConn = new OleDbConnection (connectingString);
+   //Ñôîðìèðîâàòü ñòðîêó çàïðîñîâ
+            string selectString ="Select name,group from stud";
+            OleDbCommand myCommand= myConn.CreateCommand();
+            myCommand.CommandText= selectString;
+            OleDbDataAdapter oda= new OleDbDataAdapter();
+           
+ 
+                        oda.SelectCommand=myCommand;
+            DataSet myDataset= new DataSet();
+        myConn.Open();
+        string dataTableName="studA";
+            oda.Fill(myDataset,dataTableName);
+            DataTable myDataTable= myDataset.Tables[dataTableName];
+ 
+                  foreach (DataRow dr in myDataTable.Rows)
+                  {
+           Console.WriteLine("Name="+dr["name"]);
+               Console.WriteLine("Group="+dr["group"]);   
+             
+                  }
+ 
+        string s= Console.ReadLine();   
+            myConn.Close();
+ 
+ 
+ 
+            }
+      }
+}
+
+using System;
+using System.Data;
+using System.Data.OleDb;
+namespace lessonbasaconsole
+{
+      /// <summary>
+      /// Summary description for Class1.
+      /// </summary>
+      class Class1
+      {
+            /// <summary>
+            /// The main entry point for the application.
+            /// </summary>
+            [STAThread]
+            static void Main(string[] args)
+            {
+                  //
+                  // TODO: Add code to start application here
+                  //
+ 
+            string connectingString =@"provider=Microsoft.Jet.OLEDB.4.0;data source= c:\disk_d\msdev\mydb.mdb";
+            OleDbConnection myConn = new OleDbConnection (connectingString);
+   //Ñôîðìèðîâàòü ñòðîêó-çàïðîñ
+            string cmdString ="INSERT into stud values('tompson',24,NULL)";
+            OleDbCommand myCommand= myConn.CreateCommand();
+            myCommand.CommandText= cmdString;
+           
+        myConn.Open();
+        myCommand.ExecuteNonQuery();
+       
+      
+        Console.WriteLine("Inserted");  
+            string s= Console.ReadLine();
+            myConn.Close();
+ 
+ 
+ 
+            }
+      }
+}
+

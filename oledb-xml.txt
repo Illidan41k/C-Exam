@@ -1,0 +1,48 @@
+Ñîçäàòü êîíñîëüíîå ïğèëîæåíèå, îñóùåñòâëÿşùóş âûáîğêó èç ÁÄ access è ñîõğàíÿşùåå ğåçóëüòàòû âûáîğêè â xml. Âûâåñòè ğåçóëüòàò âûáîğêè èç xml-ôàéëà â êîíñîëü.
+
+using System;
+using System.Data;
+using System.Data.OleDb;
+ 
+namespace OleDbEx
+{
+      /// <summary>
+      /// Summary description for Class1.
+      /// </summary>
+      class Class1
+      {
+            /// <summary>
+            /// The main entry point for the application.
+            /// </summary>
+            [STAThread]
+            static void Main(string[] args)
+            {
+string connectingString =@"provider=Microsoft.Jet.OLEDB.4.0;data source= d:\work\mydb.mdb";
+OleDbConnection myConn = new OleDbConnection (connectingString);
+                  OleDbCommand myCommand= myConn.CreateCommand();
+                  myCommand.Connection = myConn;
+                  myConn.Open();
+                  string cmdString ="Select * from stud";
+                 
+                  myCommand.CommandText= cmdString;
+                 
+                  DataSet myDataset= new DataSet();
+OleDbDataAdapter oda= new OleDbDataAdapter(myCommand);
+                  oda.Fill(myDataset);
+                 
+                  myDataset.WriteXml(@"d:\work\my2.xml");
+                  myDataset.Clear();
+                  myDataset.ReadXml(@"d:\work\my2.xml");
+            DataTable myDataTable= myDataset.Tables[0];
+                  foreach (DataRow dr in myDataTable.Rows)
+                  {
+                             Console.WriteLine(dr["nameS"]);
+                  }
+                  myConn.Close();
+                  Console.ReadLine();
+                 
+            }
+      }
+ 
+}
+

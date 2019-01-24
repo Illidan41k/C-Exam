@@ -1,0 +1,28 @@
+На форме делается comboBox - он будет содержать цвета доступные. и текстовое поле с, собсна, текстом.
+
+В конструкторе формы пишем:
+ //colors
+            string[] colorNames = System.Enum.GetNames(typeof(KnownColor));
+            comboBox3.Items.AddRange(colorNames);
+
+метод-обработчик comboBox:
+private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            setFont();
+        }
+
+ private void setFont()
+        {
+	KnownColor selectedColor; 
+           	 if(comboBox3.SelectedItem != null)
+            {
+                selectedColor = (KnownColor)System.Enum.Parse(typeof(KnownColor), comboBox3.SelectedItem.ToString());
+                textBox1.ForeColor = System.Drawing.Color.FromKnownColor(selectedColor);
+            }
+            else
+            {
+                textBox1.ForeColor = Color.Black;
+            }
+
+         }
+

@@ -1,0 +1,127 @@
+Основа
+using System;
+using System.Collections.Generic;
+using Var7_ex_bibl;
+
+namespace Var7_ex
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Spisok spisok = new Spisok();
+            bool exit = false;
+            while (!exit)
+            {
+                Console.WriteLine("1. Просмотр списка.");
+                Console.WriteLine("2. Добавит/Ввести строку, число, дату.");
+                Console.WriteLine("3. Найти, удалить элемент списка.");
+                Console.WriteLine("4. Выход.");
+                int ch = Convert.ToInt32(Console.ReadLine());
+                switch (ch)
+                {
+                    case 1:
+                        {
+                            spisok.showList();
+                            break;
+                        }
+                    case 2:
+                        {
+                            spisok.addList();
+                            break;
+                        }
+                    case 3:
+                        {
+                            spisok.editList();
+                            break;
+                        }
+                    case 4:
+                        {
+                            exit = true;
+                            break;
+                        }
+                }
+            }
+        }
+    }
+}
+библиотека
+using System;
+
+using System.Collections.Generic;
+namespace Var7_ex_bibl
+{
+    public class Spisok
+    {
+        List<object> list = new List<object>();
+        public void showList()
+        {
+            int k = list.Count;
+            if (k == 0)
+            {
+                Console.WriteLine("Список пуст.");
+            }
+            else
+            {
+                for (int i = 0; i < k; i++)
+                {
+                    Console.WriteLine(list[i]);
+                }
+            }
+            
+        }
+        public void addList()
+        {
+            Console.WriteLine("1.Число 2.Строку 3. Дату");
+            int ch = Convert.ToInt32(Console.ReadLine());
+            if (ch == 1)
+            {
+                Console.WriteLine("Введите число: ");
+                int num = Convert.ToInt32(Console.ReadLine());
+                list.Add(num);
+            }
+            else if (ch == 2)
+            {
+                Console.WriteLine("Введите строку: ");
+                string str = Console.ReadLine();
+                list.Add(str);
+            }
+            else
+            {
+                Console.WriteLine("Введите дату: ");
+                DateTime date = Convert.ToDateTime(Console.ReadLine());
+                list.Add(date);
+            }
+        }
+        public void editList()
+        {
+            Console.WriteLine("1.Поиск 2.Удаление");
+            int ch = Convert.ToInt32(Console.ReadLine());
+            if (ch == 1)
+            {
+                Console.WriteLine("Поиск по 1.Содержимому 2.По индексу ");
+                int num = Convert.ToInt32(Console.ReadLine());
+                if (num == 1)
+                {
+                    Console.WriteLine("Введите содержимое: ");
+                    string soderzhimoe = Console.ReadLine();
+                    int k = list.Count;
+                    int b=0;
+                    for(int i = 0; i < k; i++)
+                    {
+                        if (list[i] == soderzhimoe) { b = b + i; };
+                    }
+                    Console.WriteLine(list[b] + "Index = " +b) ;
+                }
+            }
+            else if (ch == 2)
+            {
+                Console.WriteLine("Введите индекс: ");
+                int index = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine(list[index]);
+            }
+            
+        }
+    }
+}
+

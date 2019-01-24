@@ -1,0 +1,97 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DateComp
+{
+    public static class Dates
+    {
+        public static DateTime res1;
+        public static DateTime res2;
+        public static void Raznost(string date1, string date2)
+        {
+            res1 = DateTime.Parse(date1);
+            res2 = DateTime.Parse(date2);
+            Console.WriteLine((res1.Date - res2.Date).TotalDays);
+            
+        }
+        public static void Sravneniie(string date1, string date2)
+        {
+            res1 = DateTime.Parse(date1);
+            res2 = DateTime.Parse(date2);
+            int compare = DateTime.Compare(res1, res2);
+
+            if (compare < 0) { Console.WriteLine("{0} Старше {1} ", res1, res2); }
+            else { Console.WriteLine("{1} Старше {0} ", res1, res2); }
+
+        }
+        public static void Imena(string date1, string date2)
+        {
+            res1 = DateTime.Parse(date1);
+            res2 = DateTime.Parse(date2);
+            string day = res1.ToString("ddd");
+            string month = res1.ToString("MMM");
+            Console.WriteLine("Дата: {0} День недели: {1} Месяц : {2} ", res1, day, month);
+            string day2 = res2.ToString("ddd");
+            string month2 = res2.ToString("MMM");
+            Console.WriteLine("Дата: {0} День недели: {1} Месяц : {2} ", res2, day, month);
+        }
+    }
+}
+
+Основной
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using DateComp;
+
+namespace DateEX_var5
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string i;
+            string str1;
+            string str2;
+            Console.WriteLine("Введите дату через <</>>. Пример : дд/мм/гггг ");
+            str1 = Console.ReadLine();
+            Console.WriteLine("Введите ещё 1 дату через <</>>. Пример : дд/мм/гггг ");
+            str2 = Console.ReadLine();
+
+            do
+            {
+                Console.WriteLine("1 - Разность дат");
+                Console.WriteLine("2 - Сравнение");
+                Console.WriteLine("3 - Название");
+                i = Console.ReadLine();
+                switch (i)
+                {
+                    case "1":
+
+                        Dates.Raznost(str1,str2);
+                        break;
+                    case "2":
+
+                        Dates.Sravneniie(str1, str2);
+                        break;
+                    case "3":
+
+                        Dates.Imena(str1, str2);
+                        break;
+                    default:
+                        Console.WriteLine("Выбран не верный пункт меню!!231ёЁ!");
+                        break;
+                }
+
+            } while (i != "9");
+        }
+    }
+}
+

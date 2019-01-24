@@ -1,0 +1,46 @@
+целиком словарь не делал, вот пример, как регулярками одиночную ошибку отловить.
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+
+namespace Regurals
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string str = "курва";
+            
+            while (true)
+            {
+                string input = Console.ReadLine();
+                for(int i = 0; i<input.Length; i++)
+                {
+                    string sub1 = input.Substring(0, i);
+                    string sub2 = input.Substring(i+1, input.Length-i-1);
+                    //Console.WriteLine(sub1 + " и " + sub2);
+                    string text = @"^" + sub1 + "." + sub2 + "$";
+                    Regex re = new Regex(text);
+                    
+                    MatchCollection matches = re.Matches(str);
+                    if (matches.Count > 0)
+                    {
+                        foreach (Match match in matches)
+                            Console.WriteLine("ты имел в виду 'курва'?");
+                    }
+                    else
+                    {
+                        //Console.WriteLine("больше 2 ошибок!");
+                    }
+
+                }
+                
+            }
+        }
+    }
+}
+
+

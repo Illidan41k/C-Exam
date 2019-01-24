@@ -1,0 +1,56 @@
+using System;
+using System.Data;
+using System.Data.Odbc;
+namespace odbcexample
+{
+      /// <summary>
+      /// Summary description for Class1.
+      /// </summary>
+      class Class1
+      {
+            /// <summary>
+            /// The main entry point for the application.
+            /// </summary>
+            [STAThread]
+            static void Main(string[] args)
+            {
+                  //
+                  // TODO: Add code to start application here
+                  //
+ 
+                  string connectingString ="DSN=myaccess";
+                  OdbcConnection myConn = new OdbcConnection (connectingString);
+                                  
+                  string mySelectQuery = "SELECT name,group FROM stud";
+                  OdbcCommand myCommand = new OdbcCommand(mySelectQuery);
+                 
+                                    myCommand.Connection= new OdbcConnection(connectingString);
+                  OdbcDataAdapter oda= new OdbcDataAdapter();
+                  oda.SelectCommand=myCommand;
+                                              
+                  //Ñôîðìèðîâàòü ñòðîêó çàïðîñîâ
+                 
+                  DataSet myDataset= new DataSet();
+                  myConn.Open();
+                  string dataTableName="studA";
+                  oda.Fill(myDataset,dataTableName);
+                  DataTable myDataTable= myDataset.Tables[dataTableName];
+ 
+                  foreach (DataRow dr in myDataTable.Rows)
+                  {
+                        Console.WriteLine("Name="+dr["name"]);
+                        Console.WriteLine("Group="+dr["group"]);
+             
+                  }
+           
+                  string s= Console.ReadLine();
+                 
+                       
+                  myConn.Close();
+ 
+ 
+ 
+            }
+      }
+}
+
